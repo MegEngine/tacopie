@@ -22,6 +22,7 @@
 
 #include <tacopie/utils/logger.hpp>
 #include <tacopie/utils/thread_pool.hpp>
+#include <cpp_redis/misc/macro.hpp>
 
 namespace tacopie {
 
@@ -63,10 +64,10 @@ thread_pool::run(void) {
     if (task) {
       __TACOPIE_LOG(debug, "execute task");
 
-      try {
+      cpp_redis_try {
         task();
       }
-      catch (const std::exception&) {
+      cpp_redis_catch (const std::exception&, ) {
         __TACOPIE_LOG(warn, "uncatched exception propagated up to the threadpool.")
       }
 

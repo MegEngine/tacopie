@@ -23,6 +23,7 @@
 #include <tacopie/network/tcp_server.hpp>
 #include <tacopie/utils/error.hpp>
 #include <tacopie/utils/logger.hpp>
+#include <cpp_redis/misc/macro.hpp>
 
 #include <algorithm>
 
@@ -86,7 +87,7 @@ tcp_server::stop(bool wait_for_removal, bool recursive_wait_for_removal) {
 
 void
 tcp_server::on_read_available(fd_t) {
-  try {
+  cpp_redis_try {
     __TACOPIE_LOG(info, "tcp_server received new connection");
 
     auto client = std::make_shared<tcp_client>(m_socket.accept());
@@ -101,7 +102,7 @@ tcp_server::on_read_available(fd_t) {
       __TACOPIE_LOG(info, "connection handled by tcp_server wrapper");
     }
   }
-  catch (const tacopie::tacopie_error&) {
+  cpp_redis_catch (const tacopie::tacopie_error&, ) {
     __TACOPIE_LOG(warn, "accept operation failure");
     stop();
   }
