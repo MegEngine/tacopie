@@ -27,6 +27,7 @@
 #include <string>
 
 #include <tacopie/utils/logger.hpp>
+#include <cpp_redis/misc/macro.hpp>
 
 namespace tacopie {
 
@@ -71,8 +72,8 @@ private:
 } // namespace tacopie
 
 //! macro for convenience
-#define __TACOPIE_THROW(level, what)                          \
-  {                                                           \
-    __TACOPIE_LOG(level, (what));                             \
-    throw tacopie::tacopie_error((what), __FILE__, __LINE__); \
+#define __TACOPIE_THROW(level, what)                                         \
+  {                                                                          \
+    __TACOPIE_LOG(level, (what));                                            \
+    cpp_redis_throw_raw(tacopie::tacopie_error((what), __FILE__, __LINE__)); \
   }

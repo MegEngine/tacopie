@@ -23,6 +23,7 @@
 #include <tacopie/network/tcp_client.hpp>
 #include <tacopie/utils/error.hpp>
 #include <tacopie/utils/logger.hpp>
+#include <cpp_redis/misc/macro.hpp>
 
 namespace tacopie {
 
@@ -77,13 +78,13 @@ void
 tcp_client::connect(const std::string& host, std::uint32_t port, std::uint32_t timeout_msecs) {
   if (is_connected()) { __TACOPIE_THROW(warn, "tcp_client is already connected"); }
 
-  try {
+  cpp_redis_try {
     m_socket.connect(host, port, timeout_msecs);
     m_io_service->track(m_socket);
   }
-  catch (const tacopie_error& e) {
+  cpp_redis_catch(const tacopie_error& e, ) {
     m_socket.close();
-    throw e;
+    cpp_redis_throw_raw(e);
   }
 
   m_is_connected = true;
@@ -196,11 +197,11 @@ tcp_client::process_read(read_result& result) {
   const auto& request = m_read_requests.front();
   auto callback       = request.async_read_callback;
 
-  try {
+  cpp_redis_try {
     result.buffer  = m_socket.recv(request.size);
     result.success = true;
   }
-  catch (const tacopie::tacopie_error&) {
+  cpp_redis_catch(const tacopie::tacopie_error&, ) {
     result.success = false;
   }
 
@@ -220,11 +221,11 @@ tcp_client::process_write(write_result& result) {
   const auto& request = m_write_requests.front();
   auto callback       = request.async_write_callback;
 
-  try {
+  cpp_redis_try {
     result.size    = m_socket.send(request.buffer, request.buffer.size());
     result.success = true;
   }
-  catch (const tacopie::tacopie_error&) {
+  cpp_redis_catch(const tacopie::tacopie_error&, ) {
     result.success = false;
   }
 
