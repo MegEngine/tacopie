@@ -22,6 +22,7 @@ cc_library(
         "includes/tacopie/tacopie",
         "includes/tacopie/utils/error.hpp",
         "includes/tacopie/utils/logger.hpp",
+        "includes/tacopie/utils/macro.hpp",
         "includes/tacopie/utils/thread_pool.hpp",
         "includes/tacopie/utils/typedefs.hpp",
     ],
