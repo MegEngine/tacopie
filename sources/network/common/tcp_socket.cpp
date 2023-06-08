@@ -23,7 +23,7 @@
 #include <tacopie/network/tcp_server.hpp>
 #include <tacopie/utils/error.hpp>
 #include <tacopie/utils/logger.hpp>
-#include <cpp_redis/misc/macro.hpp>
+#include <tacopie/utils/macro.hpp>
 
 #ifdef _WIN32
 #ifdef __GNUC__

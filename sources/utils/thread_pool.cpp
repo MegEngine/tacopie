@@ -22,7 +22,7 @@
 
 #include <tacopie/utils/logger.hpp>
 #include <tacopie/utils/thread_pool.hpp>
-#include <cpp_redis/misc/macro.hpp>
+#include <tacopie/utils/macro.hpp>
 
 namespace tacopie {
 
